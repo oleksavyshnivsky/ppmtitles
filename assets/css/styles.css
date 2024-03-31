@@ -9,3 +9,23 @@
 [data-dir="desc"]:after {
 	content: ' ↘';
 }
+
+.github-link {
+    color: #0366d6; /* GitHub link color */
+    text-decoration: none;
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #0366d6;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.github-link:hover {
+    background-color: #f1f8ff; /* Light blue background color on hover */
+}
+
+.github-link::before {
+    content: "\f09b"; /* GitHub icon unicode */
+    font-family: 'Font Awesome 5 Free'; /* Font Awesome for the icon */
+    margin-right: 5px;
+}

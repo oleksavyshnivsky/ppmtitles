@@ -144,7 +144,9 @@ loadSportData().then(() => {
 })
 
 
-// ~~~~~~~~~~~~~~~~~~~~
+/**
+ * Рейтинг за кількістю титулів
+ */
 function updateTable() {
 	let cou_id = parseInt(inp_country.value)
 	const tou_id = inp_tournament.value
@@ -155,9 +157,7 @@ function updateTable() {
 	const tou_ids = tou_id.split('-').map(numString => +numString)
 
 	// ~~~~~~~~~~~~~~~~~~~~
-	if (!cou_id) {
-		cou_id = inp_country.value = 30
-	}
+	if (!cou_id) cou_id = inp_country.value = 30
 
 	// ~~~~~~~~~~~~~~~~~~~~
 	const result = []
@@ -186,12 +186,18 @@ function updateTable() {
 
 	// ~~~~~~~~~~~~~~~~~~~~
 	const frag = document.createDocumentFragment()
+	let position = 0, prev_titles
 	result.forEach((record, i) => {
-		if (!record.titles) return 
+		if (!record.titles) return
+		if (record.titles !== prev_titles) {
+			position = i + 1
+			prev_titles = record.titles
+		}
+
 		const tr = document.createElement('tr')
 		const td0 = document.createElement('td')
 		td0.classList.add('text-end')
-		td0.textContent = i + 1
+		td0.textContent = position
 		tr.appendChild(td0)
 		const td_name = document.createElement('td')
 		td_name.textContent = record.name
@@ -268,6 +274,9 @@ function findWinner(season, cou_id, tou_id) {
 	return winner ? winner.team_id : null
 }
 
+/**
+ * Підсвічення назви команди
+ */
 main.addEventListener('mouseover', e => {
 	if (e.target.matches('[data-team-id]')) {
 		const teamId = e.target.dataset.teamId
